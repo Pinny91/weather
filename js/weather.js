@@ -1,7 +1,7 @@
 //var APIKEY = '794ae7c93cde1a156390347a55da602c2faffd24';
 var APIKEY = '061f24cf3cde2f60644a8240302983f2';
 
-var url = 'http://api.openweathermap.org/data/2.5/weather?'
+var url = 'https://api.openweathermap.org/data/2.5/weather?'
 var cb = "&callback=JSON_CALLBACK";
 
 
