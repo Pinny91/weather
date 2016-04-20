@@ -9,6 +9,7 @@ var lat = 50.848921, lon = 4.351484; //Brussel
 var temp = 0, loc = '';
 
 $(document).ready(function() {
+	getLocation();
 	getWeather();
 });	
 
@@ -22,8 +23,14 @@ function getLocation() {
 }
 
 function getWeather() {
-	getLocation();
-	var locationUrl = url + 'lat=' + lat + '&lon=' + lon + '&APPID=' + APIKEY;
+	
+		if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			window.lat = position.coords.latitude;
+			window.lon = position.coords.longitude;
+		});
+	}
+	var locationUrl = url + 'lat=' + window.lat + '&lon=' + window.lon + '&APPID=' + APIKEY;
 	$.getJSON(locationUrl, function(laWeer){
 		var iconUrl = 'http://openweathermap.org/img/w/' + laWeer.weather[0].icon + '.png';
 		temp = Math.round((laWeer.main.temp - 273)*100)/100;
