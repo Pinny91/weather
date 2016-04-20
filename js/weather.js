@@ -1,7 +1,7 @@
 //var APIKEY = '794ae7c93cde1a156390347a55da602c2faffd24';
 var APIKEY = '061f24cf3cde2f60644a8240302983f2';
 
-var url = 'https://api.openweathermap.org/data/2.5/weather?'
+var url = 'http://api.openweathermap.org/data/2.5/weather?'
 var cb = "&callback=JSON_CALLBACK";
 
 
@@ -25,7 +25,7 @@ function getWeather() {
 	getLocation();
 	var locationUrl = url + 'lat=' + lat + '&lon=' + lon + '&APPID=' + APIKEY;
 	$.getJSON(locationUrl, function(laWeer){
-		var iconUrl = 'https://openweathermap.org/img/w/' + laWeer.weather[0].icon + '.png';
+		var iconUrl = 'http://openweathermap.org/img/w/' + laWeer.weather[0].icon + '.png';
 		temp = Math.round((laWeer.main.temp - 273)*100)/100;
 		loc = laWeer.name;
 			
