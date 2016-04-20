@@ -23,7 +23,7 @@ function getLocation() {
 }
 
 function getWeather() {
-	var locationUrl = url + 'lat=' + lat + '&lon=' + lon + '&APPID=' + APIKEY;
+	var locationUrl = url + 'lat=' + window.lat + '&lon=' + window.lon + '&APPID=' + APIKEY;
 	$.getJSON(locationUrl, function(laWeer){
 		var iconUrl = 'http://openweathermap.org/img/w/' + laWeer.weather[0].icon + '.png';
 		temp = Math.round((laWeer.main.temp - 273)*100)/100;
