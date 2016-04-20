@@ -25,7 +25,7 @@ function getWeather() {
 	getLocation();
 	var locationUrl = url + 'lat=' + lat + '&lon=' + lon + '&APPID=' + APIKEY;
 	$.getJSON(locationUrl, function(laWeer){
-		var iconUrl = 'http://openweathermap.org/img/w/' + laWeer.weather[0].icon + '.png';
+		var iconUrl = 'https://openweathermap.org/img/w/' + laWeer.weather[0].icon + '.png';
 		temp = Math.round((laWeer.main.temp - 273)*100)/100;
 		loc = laWeer.name;
 			
