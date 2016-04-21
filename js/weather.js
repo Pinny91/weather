@@ -13,6 +13,8 @@ var temp = 0, loc = '';
 
 $(document).ready(function() {
 	getWeather();	
+  getLocation();
+  conversionCF();
 });	
 
 function getLocation() {
@@ -20,12 +22,13 @@ function getLocation() {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			window.lat = position.coords.latitude;
 			window.lon = position.coords.longitude;
+      getWeather();
 		});
 	}
+  
 }
 
 function getWeather() {
-	getLocation();
 	var locationUrl = url + 'lat=' + window.lat + '&lon=' + window.lon + '&APPID=' + APIKEY;
 	$.getJSON(locationUrl, function(data) {
 		changeHTML(data);
@@ -35,10 +38,8 @@ function getWeather() {
 
 function changeHTML(laWeer){
 		window.iconUrl = 'http://openweathermap.org/img/w/' + laWeer.weather[0].icon + '.png';
-		window.temp = Math.round((laWeer.main.temp - 273)*100)/100;
-		window.loc = laWeer.name;
-		
-		conversionCF();
+		window.temp = roundTwoDec(laWeer.main.temp - 273);
+		window.loc = laWeer.name;		
 		//imgWeather.html('<img src="' + iconUrl + '">')
 			
 			var tempHtml = $('#temperature');
@@ -68,17 +69,25 @@ function conversionCF() {
 	var conversion = $('#convert');
 	conversion.on('click' ,function(){
 			var tempChange = $('#temp');
+      var changeButton = $('#convert');
 			if(conversion.hasClass('cel')) {
-				window.temp = temp * 9 / 5 + 32;
+				window.temp = roundTwoDec(temp * 9 / 5 + 32);
 				conversion.addClass('far');
 				conversion.removeClass('cel');
+				changeButton.text('to °C');
 				tempChange.html(window.temp + '°F');
-			} else { 
-				window.temp = (temp-32) / 9 * 5;
+			} 
+    else if(conversion.hasClass('far')){ 
+				window.temp = roundTwoDec((temp-32) / 9 * 5);
 				conversion.addClass('cel');
 				conversion.removeClass('far');
+				changeButton.text('to °F');
 				tempChange.html(window.temp + '°C');
 			}
 	console.log(temp);
 	});
+}
+
+function roundTwoDec(num) {
+  return (Math.round(num*100))/100;
 }
